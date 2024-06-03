@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Pengaduan Juru Parkir Liar</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <ul>
+            <li><a href="#home" onclick="showSection('home')">Home</a></li>
+            <li><a href="#complaints" onclick="showSection('complaints')">Complaints</a></li>
+            <li><a href="#users" onclick="showSection('users')">Users</a></li>
+            <li><a href="#settings" onclick="showSection('settings')">Settings</a></li>
+            <li><a href="#logout">Logout</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <header>
+            <h1>Welcome, Admin</h1>
+        </header>
+        <section id="home" class="content-section">
+            <h2>Overview</h2>
+            <div class="box-container">
+                <div class="box">
+                    <h3>Data Pengaduan</h3>
+                    <p>Total: 120</p>
+                </div>
+                <div class="box">
+                    <h3>Data Proses</h3>
+                    <p>Total: 45</p>
+                </div>
+                <div class="box">
+                    <h3>Data Selesai</h3>
+                    <p>Total: 75</p>
+                </div>
+            </div>
+            <div class="chart-container">
+                <h3>Grafik Pengaduan</h3>
+                <canvas id="complaintsChart"></canvas>
+            </div>
+        </section>
+        <section id="complaints" class="content-section" style="display:none;">
+            <h2>Complaints</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>2024-06-01</td>
+                        <td>Jl. Sudirman</td>
+                        <td>Unauthorized parking attendants spotted</td>
+                        <td>Pending</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>2024-06-02</td>
+                        <td>Jl. Ahmad Yani</td>
+                        <td>Harassment by parking attendants</td>
+                        <td>Resolved</td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </section>
+        <section id="users" class="content-section" style="display:none;">
+            <h2>Users</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Jane Doe</td>
+                        <td>jane.doe@example.com</td>
+                        <td>Admin</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>John Smith</td>
+                        <td>john.smith@example.com</td>
+                        <td>User</td>
+                        <td>Inactive</td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </section>
+        <section id="settings" class="content-section" style="display:none;">
+            <h2>Settings</h2>
+            <form>
+                <div class="form-group">
+                    <label for="siteName">Site Name:</label>
+                    <input type="text" id="siteName" name="siteName" value="Pengaduan Juru Parkir Liar">
+                </div>
+                <div class="form-group">
+                    <label for="adminEmail">Admin Email:</label>
+                    <input type="email" id="adminEmail" name="adminEmail" value="admin@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="itemsPerPage">Items Per Page:</label>
+                    <input type="number" id="itemsPerPage" name="itemsPerPage" value="10">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Save Settings</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.content-section');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            var sectionToShow = document.getElementById(sectionId);
+            if (sectionToShow) {
+                sectionToShow.style.display = 'block';
+            }
+        }
+
+        // Chart.js example
+        const ctx = document.getElementById('complaintsChart').getContext('2d');
+        const complaintsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'Complaints',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
